@@ -1,0 +1,58 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gateway-api
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    path: config/crd/standard
+    repoURL: https://github.com/kubernetes-sigs/gateway-api.git
+    targetRevision: v1.4.0
+  sources: []
+  project: default
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: gateway-api-rbac
+spec:
+  destination:
+    namespace: default
+    server: https://kubernetes.default.svc
+  source:
+    path: docs/content/reference/dynamic-configuration
+    repoURL: https://github.com/traefik/traefik.git
+    targetRevision: v3.6.6
+    directory:
+      include: kubernetes-gateway-rbac.yml
+  sources: []
+  project: default
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+spec:
+  destination:
+    namespace: traefik
+    server: https://kubernetes.default.svc
+  source:
+    path: ''
+    repoURL: https://traefik.github.io/charts
+    targetRevision: 38.0.1
+    chart: traefik
+    helm:
+      values: |
+        providers:
+          kubernetesGateway:
+            enabled: true
+  sources: []
+  project: default
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
