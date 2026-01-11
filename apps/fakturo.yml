@@ -47,7 +47,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fakturo
+  name: fakturo-rpc-server
 spec:
   destination:
     namespace: fakturo
