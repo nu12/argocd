@@ -18,7 +18,7 @@ spec:
             - name: RABBITMQ_URL
               valueFrom:
                 secretKeyRef:
-                  name: rabbitmq-fakturo
+                  name: fakturo-rabbitmq
                   key: connection_string
         gateway:
           enabled: true
