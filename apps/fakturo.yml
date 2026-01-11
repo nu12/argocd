@@ -13,7 +13,7 @@ spec:
     helm:
       values: |
         jobs:
-          enabled: false
+          enabled: true
         gateway:
           enabled: true
           gatewayClassName: traefik
@@ -42,3 +42,21 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: fakturo
+spec:
+  destination:
+    namespace: fakturo
+    server: https://kubernetes.default.svc
+  source:
+    path: 'charts/fakturo-rpc-server'
+    repoURL: https://github.com/nu12/argocd.git
+    targetRevision: feat/fakturo
+  sources: []
+  project: default
+  syncPolicy: {}
+      
