@@ -18,10 +18,14 @@ kind: AppProject
 metadata:
   name: infra
 spec:
-  sourceRepos: []
+  sourceRepos:
+  - 'https://github.com/kubernetes-sigs/gateway-api.git'
+  - 'https://github.com/traefik/traefik.git'
+  - 'https://github.com/rabbitmq/cluster-operator.git'
+  - 'https://traefik.github.io/charts'
   destinations:
   - namespace: '*'
-    server: '*'
+    server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
