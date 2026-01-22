@@ -12,7 +12,7 @@ spec:
     repoURL: https://github.com/nu12/argocd.git
     targetRevision: main
   sources: []
-  project: default
+  project: fakturo
   syncPolicy: {}
   ignoreDifferences:
   - kind: Secret
@@ -67,11 +67,10 @@ spec:
           - name: fakturo
             sectionName: websecure
   sources: []
-  project: default
+  project: fakturo
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-      - RespectIgnoreDifferences=true
 ---
 apiVersion: argoproj.io/v1alpha1
 kind: Application
@@ -86,7 +85,7 @@ spec:
     repoURL: https://github.com/nu12/argocd.git
     targetRevision: main
   sources: []
-  project: default
+  project: fakturo
   syncPolicy: {}
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -102,6 +101,6 @@ spec:
     repoURL: https://github.com/nu12/argocd.git
     targetRevision: main
   sources: []
-  project: default
+  project: fakturo
   syncPolicy: {}
       
