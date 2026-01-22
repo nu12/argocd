@@ -7,16 +7,18 @@ spec:
   destination:
     namespace: fakturo
     server: https://kubernetes.default.svc
-  source:
-    path: 'manifests/fakturo-manifests'
+  sources:
+  - path: 'manifests/fakturo-manifests'
     repoURL: https://github.com/nu12/argocd.git
-    targetRevision: chore/sources
-  sources: []
+    targetRevision: main
   project: fakturo
   ignoreDifferences:
   - kind: Secret
     jsonPointers:
       - /data
+  syncPolicy:
+    syncOptions:
+      - RespectIgnoreDifferences=true
 
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -35,42 +37,19 @@ spec:
       valueFiles:
       - $values/values/fakturo.yml
   - repoURL: 'https://github.com/nu12/argocd.git'
-    targetRevision: chore/sources
+    targetRevision: main
     ref: values
+  - path: 'manifests/fakturo-rabbitmq'
+    repoURL: https://github.com/nu12/argocd.git
+    targetRevision: main
+  - path: 'charts/fakturo-rpc-server'
+    repoURL: https://github.com/nu12/argocd.git
+    targetRevision: main
   project: fakturo
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: fakturo-rabbitmq
-spec:
-  destination:
-    namespace: fakturo
-    server: https://kubernetes.default.svc
-  source:
-    path: 'manifests/fakturo-rabbitmq'
-    repoURL: https://github.com/nu12/argocd.git
-    targetRevision: chore/sources
-  sources: []
-  project: fakturo
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: fakturo-rpc-server
-spec:
-  destination:
-    namespace: fakturo
-    server: https://kubernetes.default.svc
-  source:
-    path: 'charts/fakturo-rpc-server'
-    repoURL: https://github.com/nu12/argocd.git
-    targetRevision: chore/sources
-  sources: []
-  project: fakturo
-      
+  ignoreDifferences:
+  - kind: Secret
+    jsonPointers:
+      - /data

@@ -1,0 +1,50 @@
+image:
+  tag: "1.1.0"
+jobs:
+  enabled: true
+  env:
+    - name: RABBITMQ_URL
+      valueFrom:
+        secretKeyRef:
+          name: fakturo-rabbitmq
+          key: connection_string
+gateway:
+  enabled: true
+  gatewayClassName: traefik
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    name: websecure
+    port: 8443
+    protocol: HTTPS
+    tls:
+      mode: Terminate
+      certificateRefs:
+        - group: ''
+          kind: Secret
+          name: fakturo-tls
+httpRoute:
+  enabled: true
+  hostnames:
+  - fakturo.pi
+  parentRefs:
+  - name: fakturo
+    sectionName: websecure
+
+persistentVolume:
+  name: fakturo
+  capacity: 1Gi
+  accessModes:
+  - ReadWriteOnce
+  plugin:
+    local:
+      path: /storage/fakturo
+    nodeAffinity:
+      required:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: kubernetes.io/os
+            operator: In
+            values:
+            - linux

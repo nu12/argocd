@@ -7,9 +7,8 @@ spec:
   destination:
     namespace: default
     server: https://kubernetes.default.svc
-  source:
-    path: config/installation
+  sources:
+  - path: config/installation
     repoURL: https://github.com/rabbitmq/cluster-operator.git
     targetRevision: v2.18.0
-  sources: []
   project: infra
