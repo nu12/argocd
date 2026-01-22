@@ -5,10 +5,10 @@ metadata:
   name: default
 spec:
   sourceRepos:
-  - '*'
+  - 'https://github.com/nu12/argocd.git'
   destinations:
-  - namespace: '*'
-    server: '*'
+  - namespace: 'argocd'
+    server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
@@ -18,8 +18,7 @@ kind: AppProject
 metadata:
   name: infra
 spec:
-  sourceRepos:
-  - '*'
+  sourceRepos: []
   destinations:
   - namespace: '*'
     server: '*'
@@ -32,7 +31,9 @@ kind: AppProject
 metadata:
   name: fakturo
 spec:
-  sourceRepos: []
+  sourceRepos:
+  - 'https://github.com/nu12/fakturo.git'
+  - 'https://github.com/nu12/argocd.git'
   destinations:
   - namespace: 'fakturo'
     server: 'https://kubernetes.default.svc'

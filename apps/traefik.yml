@@ -12,7 +12,7 @@ spec:
     repoURL: https://github.com/kubernetes-sigs/gateway-api.git
     targetRevision: v1.4.0
   sources: []
-  project: default
+  project: infra
 
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -30,7 +30,7 @@ spec:
     directory:
       include: kubernetes-gateway-rbac.yml
   sources: []
-  project: default
+  project: infra
 
 ---
 apiVersion: argoproj.io/v1alpha1
@@ -52,7 +52,7 @@ spec:
           kubernetesGateway:
             enabled: true
   sources: []
-  project: default
+  project: infra
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

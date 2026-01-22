@@ -12,4 +12,4 @@ spec:
     repoURL: https://github.com/rabbitmq/cluster-operator.git
     targetRevision: v2.18.0
   sources: []
-  project: default
+  project: infra
