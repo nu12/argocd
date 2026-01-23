@@ -17,10 +17,10 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: gateway-api-rbac
+  name: traefik
 spec:
   destination:
-    namespace: default
+    namespace: traefik
     server: https://kubernetes.default.svc
   sources:
   - path: docs/content/reference/dynamic-configuration
@@ -28,18 +28,6 @@ spec:
     targetRevision: v3.6.6
     directory:
       include: kubernetes-gateway-rbac.yml
-  project: infra
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: traefik
-spec:
-  destination:
-    namespace: traefik
-    server: https://kubernetes.default.svc
-  sources:
   - path: ''
     repoURL: https://traefik.github.io/charts
     targetRevision: 38.0.1

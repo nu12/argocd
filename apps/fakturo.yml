@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fakturo-manifests
+  name: fakturo
 spec:
   destination:
     namespace: fakturo
@@ -11,25 +11,6 @@ spec:
   - path: 'manifests/fakturo-manifests'
     repoURL: https://github.com/nu12/argocd.git
     targetRevision: main
-  project: fakturo
-  ignoreDifferences:
-  - kind: Secret
-    jsonPointers:
-      - /data
-  syncPolicy:
-    syncOptions:
-      - RespectIgnoreDifferences=true
-
----
-apiVersion: argoproj.io/v1alpha1
-kind: Application
-metadata:
-  name: fakturo
-spec:
-  destination:
-    namespace: fakturo
-    server: https://kubernetes.default.svc
-  sources:
   - path: 'helm'
     repoURL: https://github.com/nu12/fakturo.git
     targetRevision: main
@@ -49,6 +30,7 @@ spec:
   syncPolicy:
     syncOptions:
       - CreateNamespace=true
+      - RespectIgnoreDifferences=true
   ignoreDifferences:
   - kind: Secret
     jsonPointers:
