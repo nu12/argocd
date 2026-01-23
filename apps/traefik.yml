@@ -7,11 +7,10 @@ spec:
   destination:
     namespace: default
     server: https://kubernetes.default.svc
-  source:
-    path: config/crd/standard
+  sources:
+  - path: config/crd/standard
     repoURL: https://github.com/kubernetes-sigs/gateway-api.git
     targetRevision: v1.4.0
-  sources: []
   project: infra
 
 ---
@@ -23,13 +22,12 @@ spec:
   destination:
     namespace: default
     server: https://kubernetes.default.svc
-  source:
-    path: docs/content/reference/dynamic-configuration
+  sources:
+  - path: docs/content/reference/dynamic-configuration
     repoURL: https://github.com/traefik/traefik.git
     targetRevision: v3.6.6
     directory:
       include: kubernetes-gateway-rbac.yml
-  sources: []
   project: infra
 
 ---
@@ -41,8 +39,8 @@ spec:
   destination:
     namespace: traefik
     server: https://kubernetes.default.svc
-  source:
-    path: ''
+  sources:
+  - path: ''
     repoURL: https://traefik.github.io/charts
     targetRevision: 38.0.1
     chart: traefik
@@ -51,7 +49,6 @@ spec:
         providers:
           kubernetesGateway:
             enabled: true
-  sources: []
   project: infra
   syncPolicy:
     syncOptions:
