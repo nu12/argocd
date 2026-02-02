@@ -1,0 +1,21 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: argocd
+spec:
+  destination:
+    namespace: argocd
+    server: https://kubernetes.default.svc
+  sources:
+  - path: 'manifests/argocd'
+    repoURL: https://github.com/nu12/argocd.git
+    targetRevision: main
+  project: infra
+  syncPolicy:
+    syncOptions:
+      - RespectIgnoreDifferences=true
+  ignoreDifferences:
+  - kind: Secret
+    jsonPointers:
+      - /data

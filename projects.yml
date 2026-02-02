@@ -19,6 +19,7 @@ metadata:
   name: infra
 spec:
   sourceRepos:
+  - 'https://github.com/nu12/argocd.git'
   - 'https://github.com/kubernetes-sigs/gateway-api.git'
   - 'https://github.com/traefik/traefik.git'
   - 'https://github.com/rabbitmq/cluster-operator.git'
