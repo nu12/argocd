@@ -1,0 +1,23 @@
+gateway:
+  enabled: true
+  gatewayClassName: traefik
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    name: websecure
+    port: 8443
+    protocol: HTTPS
+    tls:
+      mode: Terminate
+      certificateRefs:
+        - group: ''
+          kind: Secret
+          name: fizzy-tls
+httpRoute:
+  enabled: true
+  hostnames:
+  - fizzy.pi
+  parentRefs:
+  - name: fizzy
+    sectionName: websecure

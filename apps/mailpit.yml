@@ -1,0 +1,17 @@
+---
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: mailpit
+spec:
+  destination:
+    namespace: mailpit
+    server: https://kubernetes.default.svc
+  sources:
+  - path: 'manifests/mailpit'
+    repoURL: https://github.com/nu12/argocd.git
+    targetRevision: main
+  project: dev
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
