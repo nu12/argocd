@@ -34,7 +34,7 @@ spec:
 apiVersion: argoproj.io/v1alpha1
 kind: AppProject
 metadata:
-  name: fakturo
+  name: apps
 spec:
   sourceRepos:
   - 'https://github.com/nu12/fakturo.git'
@@ -42,6 +42,32 @@ spec:
   destinations:
   - namespace: 'fakturo'
     server: 'https://kubernetes.default.svc'
+  - namespace: 'fizzy'
+    server: 'https://kubernetes.default.svc'
   clusterResourceWhitelist:
   - group: '*'
     kind: '*'
+---
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: dev
+spec:
+  sourceRepos:
+  - 'https://github.com/nu12/argocd.git'
+  destinations:
+  - namespace: 'mailpit'
+    server: 'https://kubernetes.default.svc'
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  namespaceResourceWhitelist:
+  - group: ''
+    kind: ConfigMap
+  - group: ''
+    kind: Secret
+  - group: ''
+    kind: Service
+  - group: 'apps'
+    kind: Deployment
+  

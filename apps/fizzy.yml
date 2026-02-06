@@ -2,30 +2,24 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: fakturo
+  name: fizzy
 spec:
   destination:
-    namespace: fakturo
+    namespace: fizzy
     server: https://kubernetes.default.svc
   sources:
-  - path: 'manifests/fakturo-manifests'
+  - path: 'charts/fizzy'
     repoURL: https://github.com/nu12/argocd.git
-    targetRevision: main
-  - path: 'helm'
-    repoURL: https://github.com/nu12/fakturo.git
     targetRevision: main
     helm:
       valueFiles:
-      - $values/values/fakturo.yml
+      - $values/values/fizzy.yml
+  - path: 'manifests/fizzy'
+    repoURL: https://github.com/nu12/argocd.git
+    targetRevision: main
   - repoURL: 'https://github.com/nu12/argocd.git'
     targetRevision: main
     ref: values
-  - path: 'manifests/fakturo-rabbitmq'
-    repoURL: https://github.com/nu12/argocd.git
-    targetRevision: main
-  - path: 'charts/fakturo-rpc-server'
-    repoURL: https://github.com/nu12/argocd.git
-    targetRevision: main
   project: apps
   syncPolicy:
     syncOptions:
