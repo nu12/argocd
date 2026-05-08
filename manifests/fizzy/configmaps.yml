@@ -4,3 +4,4 @@ metadata:
   name: fizzy
 data:
   DISABLE_SSL: "true"
+  BASE_URL: "https://fizzy.pi"
